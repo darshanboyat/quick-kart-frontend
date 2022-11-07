@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function NavBar() {
+function NavBar({login, setLogin}) {
   const [loginStatus, setLoginStatus] = React.useState(false)
+  const navigate = new useNavigate()
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ backgroundColor: "black" }}>
@@ -11,14 +13,14 @@ function NavBar() {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{marginTop: '1%'}}>
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="/">
                   Home
                 </a>
               </li>
               {
-                !loginStatus ? <>
+                !login ? <>
                   <li className="nav-item">
                     <a className="nav-link" href="/auth/login">
                       Login
@@ -47,6 +49,16 @@ function NavBar() {
                   Contact Us
                 </a>
               </li>
+              {login && 
+                <li className="nav-item" onClick={()=> {
+                  setLogin(false) 
+                  navigate('/')
+                  }}>
+                <a className="nav-link btn btn-danger" style={{color: 'white', marginTop: '-5%'}}>
+                  Logout
+                </a>
+              </li>
+              }
             </ul>
             <form className="d-flex" style={{ backgroundColor: "#24272e" }}>
               <input className="form-control me-3 mt-4" type="search" placeholder="Search" aria-label="Search" />

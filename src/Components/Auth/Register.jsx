@@ -78,8 +78,7 @@ export default function App() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" {...register("password", { required: true })} />
               {errors.password && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Password is required!</h6>}
-              <div className="dflex mt-2" style={{ justifyContent: 'space-between', width: 500 }}>
-                <Link to='/' >Forgot Password ?</Link>
+              <div className="dflex mt-2" style={{ justifyContent: 'space-between', width: 500, marginLeft: 140}}>
                 <Link to='/auth/login' className="ml-4" style={{ paddingLeft: 130 }}>Already have an account ?</Link>
               </div>
             </Form.Group>

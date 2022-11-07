@@ -58,10 +58,10 @@ export default function App() {
               </Form.Group>
               <Form.Group className=" mt-2 mb-3 d-flex" controlId="formBasicEmail" style={{ textAlign: 'left', flexDirection: 'column', marginLeft: 100 }}>
                 <Form.Label>Gender</Form.Label>
-                <select {...register("gender", { required: true })}>
-                  <option disabled selected>Select Gender</option>
-                  <option value="female">female</option>
+                <select {...register("gender", { required: true, default: 'male'})}>
+                  <option disabled selected value={null}>Select Gender</option>
                   <option value="male">male</option>
+                  <option value="female">female</option>
                   <option value="other">other</option>
                 </select>
                 {errors.gender && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Gender is required!</h6>}

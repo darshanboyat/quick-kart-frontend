@@ -1,4 +1,5 @@
 import './App.css';
+import {useState} from 'react'
 import Navbar from './Components/Navbar/Navbar';
 import {Routes, Route} from 'react-router-dom';
 import Home from './Components/Home/Home';
@@ -24,7 +25,9 @@ if (document.readyState == "complete") {
   console.log("Your page is loaded");
 }
 
+
 function App() {
+  const [login, setLogin] = useState(true)
   return (
     <>
     <div className="App">
@@ -36,8 +39,8 @@ function App() {
         <Route path='/' element={<Home/>}/>   
         <Route path='/auth/login' element={<Login/>}/>   
         <Route path='/auth/register' element={<Register/>}/>   
-        <Route path='/category/male' element={<Male/>}/>   
-        <Route path='/category/female' element={<Female/>}/>   
+        <Route path='/category/male' element={<Male loginStatus = {login}/>}/>   
+        <Route path='/category/female' element={<Female loginStatus = {login}/>}/>   
         <Route path='/category/common' element={<Common/>}/>   
         <Route path='/cart' element={<Cart/>}/>   
         <Route path='/admin' element={<Admin/>}/>   

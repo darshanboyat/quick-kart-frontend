@@ -13,7 +13,7 @@ export default function ControlledCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://source.unsplash.com/2600x1000/?clothe,coat"
+          src="https://source.unsplash.com/2600x1000/?wardrobe,coat"
           alt="First slide"
         />
       </Carousel.Item>
@@ -27,7 +27,7 @@ export default function ControlledCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://source.unsplash.com/2600x1000/?jeans,hoodies"
+          src="https://source.unsplash.com/2600x1000/?jeans,wardrobe"
           alt="Third slide"
         />
       </Carousel.Item>

@@ -5,7 +5,7 @@ import axios from 'axios'
 import cors from 'cors'
 
 
-function GroupExample() {
+function GroupExample({loginStatus}) {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -29,9 +29,10 @@ function GroupExample() {
                 <Card.Img variant="top" src={prod.image} />
                 <Card.Body>
                   <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
-                  <Card.Text style={{justifyContent: 'space-between'}}>
+                  <Card.Text style={{justifyContent: 'space-between', fontWeight: 'bolder'}}>
                     Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
                   </Card.Text>
+                  {loginStatus && <button style={{color: 'white', backgroundColor: 'green', border: 'none', outline: 'none', borderRadius: '2rem'}}>Add to Cart</button>}
                 </Card.Body>
 
               </Card>}
@@ -46,9 +47,10 @@ function GroupExample() {
                 <Card.Img variant="top" src={prod.image} />
                 <Card.Body>
                   <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
-                  <Card.Text style={{justifyContent: 'space-between'}}>
+                  <Card.Text style={{justifyContent: 'space-between', fontWeight: 'bolder'}}>
                     Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
                   </Card.Text>
+                  {loginStatus && <button style={{color: 'white', backgroundColor: 'green', border: 'none', outline: 'none', borderRadius: '2rem'}}>Add to Cart</button>}
                 </Card.Body>
 
               </Card>}
@@ -63,9 +65,10 @@ function GroupExample() {
                 <Card.Img variant="top" src={prod.image} />
                 <Card.Body>
                   <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
-                  <Card.Text style={{justifyContent: 'space-between'}}>
+                  <Card.Text style={{justifyContent: 'space-between', fontWeight: 'bolder'}}>
                     Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
                   </Card.Text>
+                  {loginStatus && <button style={{color: 'white', backgroundColor: 'green', border: 'none', outline: 'none', borderRadius: '2rem'}}>Add to Cart</button>}
                 </Card.Body>
 
               </Card>}

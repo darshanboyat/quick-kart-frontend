@@ -4,12 +4,28 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import React from "react";
 
 export default function App() {
+  const [login, setLogin] = React.useState(false)
+  const navigate = new useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => {
-
+  const onSubmit = async data => {
+    console.log(data)
+    await axios.post('https://quick-kart-nodejs.herokuapp.com/register', data, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }).then(res => { 
+      console.log(res) 
+      setLogin(true)
+      setTimeout(() => {
+        navigate('/auth/login')
+      }, 2000);
+     })
+     document.querySelector('#form-register').reset()
   };
 
   return (
@@ -19,8 +35,9 @@ export default function App() {
           <div className="d-flex" style={{ textAlign: 'center', justifyContent: 'center', flexDirection: 'column' }}>
             <h1 className='mt-2'>Sign Up</h1>
             <div className="underline mb-4"></div>
+            {login && <h6 style={{color: 'green'}}>Registered Successfully please login to your account...</h6>}
           </div>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form id='form-register' onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className=" mt-2 mb-3" controlId="formBasicEmail" style={{ textAlign: 'left' }}>
               <Form.Label>Name</Form.Label>
               <Form.Control type="text" placeholder="Enter yout name" {...register("name", { required: true })} />
@@ -37,9 +54,9 @@ export default function App() {
               <Form.Group className=" mt-2 mb-3" controlId="formBasicEmail" style={{ textAlign: 'left' }}>
                 <Form.Label>Phone</Form.Label>
                 <Form.Control type="number" placeholder="Enter phone number" {...register("phone", { required: true })} />
-                {errors.email && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Contact number is required!</h6>}
+                {errors.phone && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Contact number is required!</h6>}
               </Form.Group>
-              <Form.Group className=" mt-2 mb-3 d-flex" controlId="formBasicEmail" style={{ textAlign: 'left', flexDirection: 'column', marginLeft: 100}}>
+              <Form.Group className=" mt-2 mb-3 d-flex" controlId="formBasicEmail" style={{ textAlign: 'left', flexDirection: 'column', marginLeft: 100 }}>
                 <Form.Label>Gender</Form.Label>
                 <select {...register("gender", { required: true })}>
                   <option disabled selected>Select Gender</option>
@@ -47,13 +64,13 @@ export default function App() {
                   <option value="male">male</option>
                   <option value="other">other</option>
                 </select>
-                {errors.email && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Gender is required!</h6>}
+                {errors.gender && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Gender is required!</h6>}
               </Form.Group>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail" style={{ textAlign: 'left' }}>
               <Form.Label>Address</Form.Label>
-              <Form.Control type="text-area" placeholder="Enter your permanent address" {...register("email", { required: true })} />
-              {errors.email && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Address is required!</h6>}
+              <Form.Control type="text-area" placeholder="Enter your permanent address" {...register("permanentaddress", { required: true })} />
+              {errors.permanentaddress && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Address is required!</h6>}
             </Form.Group>
 
 
@@ -67,7 +84,7 @@ export default function App() {
               </div>
             </Form.Group>
             <Button variant="primary" type="submit">
-              Login
+              Sign Up
             </Button>
           </Form>
         </Col>

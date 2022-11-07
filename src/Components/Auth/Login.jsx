@@ -10,11 +10,11 @@ import axios from 'axios'
 export default function App() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async(data) => {
-        await axios.post('localhost:3300/login', data, {
+        await axios.post('http://localhost:3300/login', data, {
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(res => res.json()).then(res =>{console.log(res)})
+        }).then(res =>{console.log(res)})
     };
 
     return (

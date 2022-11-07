@@ -35,11 +35,11 @@ function GroupExample() {
                     </CardGroup>
 
                     <CardGroup style={{ backgroundColor: 'transparent' }}>
-                        <Link to='/category/unisex'>
+                        <Link to='/category/common'>
                             <Card style={{ backgroundColor: 'transparent' }}>
                                 <Card.Img variant="top" src={unisex} style={{ height: '60vh' }} />
                                 <Card.Body>
-                                    <h2 style={{ color: 'white' }}>Unisex</h2>
+                                    <h2 style={{ color: 'white' }}>Common Space</h2>
                                 </Card.Body>
                             </Card>
                         </Link>

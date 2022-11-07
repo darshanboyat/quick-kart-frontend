@@ -1,38 +1,78 @@
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios'
 import cors from 'cors'
 
 
-
-
 function GroupExample() {
   const [products, setProducts] = useState([])
-  
+
   useEffect(() => {
     return () => {
       fetch('http://localhost:3300/products', {
         method: 'GET'
-      }).then(res => res.json()).then(res => console.log(res))
+      }).then(res => res.json()).then(async res => {
+        res = JSON.stringify(res)
+        await setProducts(JSON.parse(res))
+        console.log(products)
+      })
     }
   }, [])
   return (
-    <CardGroup>
-      <Card>
-        <Card.Img variant="top" src="holder.js/100px160" />
-        <Card.Body>
-          <Card.Title>{}</Card.Title>
-          <Card.Text>
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
-        </Card.Footer>
-      </Card>
-    </CardGroup>
+    <>
+      <CardGroup className='p-4'>
+        {products.map((prod, index) => {
+          return <>
+            {index < 3 &&
+              <Card>
+                <Card.Img variant="top" src={prod.image} />
+                <Card.Body>
+                  <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
+                  <Card.Text style={{justifyContent: 'space-between'}}>
+                    Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
+                  </Card.Text>
+                </Card.Body>
+                 
+              </Card>}
+          </>
+        })}
+      </CardGroup>
+      <CardGroup className='p-' style={{marginLeft: '-10%'}}>
+        {products.map((prod, index) => {
+          return <>
+            {index <= 6 & index > 3 &&
+              <Card>
+                <Card.Img variant="top" src={prod.image} />
+                <Card.Body>
+                  <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
+                  <Card.Text style={{justifyContent: 'space-between'}}>
+                    Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
+                  </Card.Text>
+                </Card.Body>
+                 
+              </Card>}
+          </>
+        })}
+      </CardGroup>
+      <CardGroup style={{justifyContent: 'space-between'}}>
+        {products.map((prod, index) => {
+          return <>
+            {index <= 9 & index > 6 &&
+              <Card>
+                <Card.Img variant="top" src={prod.image} />
+                <Card.Body>
+                  <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
+                  <Card.Text style={{justifyContent: 'space-between'}}>
+                    Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
+                  </Card.Text>
+                </Card.Body>
+              </Card>}
+          </>
+        })}
+      </CardGroup>
+
+    </>
   );
 }
 

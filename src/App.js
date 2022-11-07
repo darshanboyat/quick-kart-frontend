@@ -5,12 +5,17 @@ import Home from './Components/Home/Home';
 import Login from './Components/Auth/Login'
 import Register from './Components/Auth/Register'
 import Male from './Components/Category/male/Male'
+import Female from './Components/Category/female/Female'
+import Common from './Components/Category/Common'
+import Cart from './Components/Cart/Cart';
+import Admin from './Components/Admin Section/Admin'
+import NavbarAdmin from './Components/Admin Section/NavbarAdmin'
 
 function URLcheck(){
   const str = window.location.pathname
 
   if(str === '/admin')
-    return "hello"
+    return <NavbarAdmin/>
   else
     return <Navbar/>
 }
@@ -32,7 +37,10 @@ function App() {
         <Route path='/auth/login' element={<Login/>}/>   
         <Route path='/auth/register' element={<Register/>}/>   
         <Route path='/category/male' element={<Male/>}/>   
-        {/* <Route path='/auth/register' element={<Register/>}/>    */}
+        <Route path='/category/female' element={<Female/>}/>   
+        <Route path='/category/common' element={<Common/>}/>   
+        <Route path='/cart' element={<Cart/>}/>   
+        <Route path='/admin' element={<Admin/>}/>   
       </Routes>
       <h6 style={{color: "white"}}>&copy; All rights reserved 2022</h6>
     </div>

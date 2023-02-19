@@ -1,6 +1,14 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom"
 
 function NavbarAdmin() {
+  const navigate = new useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate("/admin/login")
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -27,7 +35,7 @@ function NavbarAdmin() {
           </a>
         </li>
       </ul>
-      <button type="button" className="btn btn-danger">Log Out</button>
+      <button type="button" className="btn btn-danger" onClick={logout}>Log Out</button>
     </div>
   </div>
 </nav>

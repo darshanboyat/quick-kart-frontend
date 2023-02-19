@@ -14,7 +14,7 @@ export default function App() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = async data => {
     console.log(data)
-    await axios.post('https://quick-kart-nodejs.herokuapp.com/register', data, {
+    await axios.post('http://localhost:3300/register', data, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -53,7 +53,7 @@ export default function App() {
             <Form.Group className=" mt-2 mb-3 d-flex" controlId="formBasicEmail" style={{ textAlign: 'left' }}>
               <Form.Group className=" mt-2 mb-3" controlId="formBasicEmail" style={{ textAlign: 'left' }}>
                 <Form.Label>Phone</Form.Label>
-                <Form.Control type="number" placeholder="Enter phone number" {...register("phone", { required: true })} />
+                <Form.Control type="number" placeholder="Enter phone number" {...register("phone", { required: true, maxLength: '10', minLength: '10'})} />
                 {errors.phone && <h6 style={{ color: 'red', fontSize: 10, marginTop: 5 }}>Contact number is required!</h6>}
               </Form.Group>
               <Form.Group className=" mt-2 mb-3 d-flex" controlId="formBasicEmail" style={{ textAlign: 'left', flexDirection: 'column', marginLeft: 100 }}>

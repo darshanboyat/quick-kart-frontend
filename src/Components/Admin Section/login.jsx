@@ -14,7 +14,7 @@ function Login({ setLogin }) {
 
     const onSubmit = async (data) => {
 
-        await axios.post('http://localhost:3300/login', data,
+        await axios.post('http://localhost:3300/auth/admin/login', data,
             {
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,15 +61,18 @@ function Login({ setLogin }) {
                         </span>
                     </Form.Group>
                     {errors.password && <p className='d-flex' style={{ color: 'red', fontSize: 10, fontWeight: 'bold' }}>Password is required</p>}
+                    <Form.Group className="mb-3 d-flex" controlId="formBasicPassword">
+                        <Form.Control className='input-field' type="password" placeholder="Please Enter Admin Key" {...register("adminKey", { required: true, minLength: 8, maxLength: 32 })} style={{ width: 442, border: 'none', backgroundColor: '#EBEBEB', borderRadius: '.5rem 0% 0% .5rem', height: 35.5 }} />
+                        <span style={{ height: 40, marginTop: 5}}>
+                            <i className="bi bi-lock-fill" style={{ color: 'black', backgroundColor: '#EBEBEB', paddingTop: 6, paddingBottom: 8, paddingRight: 4, borderRadius: '0rem .5rem .5rem 0rem', height: 100 }} />
+                        </span>
+                    </Form.Group>
+                    {errors.adminKey && <p className='d-flex' style={{ color: 'red', fontSize: 10, fontWeight: 'bold' }}>Admin Key is required</p>}
                     <a className="d-flex" style={{ fontSize: 15, textDecoration: 'none', fontWeight: 'bold', color: 'gray', textAlign: 'center', justifyContent: 'end', width: 460 }}>
                         Forget Your password?
                     </a>
                     <div className="d-grid gap-1 mt-4" style={{ textAlign: 'center' }}>
                         <button type='submit' style={{ backgroundColor: '#2f45c5', border: 'none', color: 'white', fontSize: 16, padding: '8px 20px', borderRadius: 8 }}>Sign in</button>
-                    </div>
-
-                    <div className="sign-i mt-4 d-flex" style={{ color: 'black', fontSize: 15, fontWeight: 600, justifyContent: 'center', width: 400, paddingLeft: 80, paddingTop: 100 }}>
-                        Don't have an account? &nbsp; <a href='/auth/signup' style={{ color: 'black', textDecoration: 'none', fontSize: 16 }}>Sign Up</a>
                     </div>
                 </Form>
 

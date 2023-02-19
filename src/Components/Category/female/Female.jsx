@@ -1,83 +1,70 @@
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import { useState, useEffect } from 'react';
-import axios from 'axios'
-import cors from 'cors'
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { useCart } from 'react-use-cart';
+import Typography from '@mui/material/Typography';
+import { Container, Grid } from '@mui/material'
+import axios from "axios"
+import Style from '../style'
 
+import { useState, useEffect } from 'react'
+function Page() {
+  const [login, setLogin] = React.useState(false)
 
-function GroupExample({loginStatus}) {
-  const [products, setProducts] = useState([])
+  const { addItem } = useCart();
 
+  const [data, setData] = useState([{}])
   useEffect(() => {
-    return () => {
-      fetch('http://localhost:3300/fproducts', {
-        method: 'GET'
-      }).then(res => res.json()).then(async res => {
-        res = JSON.stringify(res)
-        await setProducts(JSON.parse(res))
-        console.log(products)
+    fetch('http://localhost:3300/products', {
+      method: 'GET'
+    }).then(res => res.json()).then(res => {
+      setData([...res.splice(9)])
+      console.log(data)
+    })
+  }, [])
+  useEffect(() => {
+    const token = "Bearer " + localStorage.getItem('token')
+
+    return async () => {
+      await axios.get('http://localhost:3300/getUser', { headers: { 'Authentication': token } }).then(async res => {
+        (res.data.sucess && setLogin(true))
       })
     }
-  }, [])
+  }, [login])
+
+
+  const classes = Style();
   return (
-    <>
-      <CardGroup className='mt-3' style={{ justifyContent: 'space-between', marginLeft: '-6.05%'}}>
-        {products.map((prod, index) => {
-          return <>
-            {index <= 12 & index > 9 &&
-              <Card>
-                <Card.Img variant="top" src={prod.image} />
-                <Card.Body>
-                  <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
-                  <Card.Text style={{justifyContent: 'space-between', fontWeight: 'bolder'}}>
-                    Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
-                  </Card.Text>
-                  {loginStatus && <button style={{color: 'white', backgroundColor: 'green', border: 'none', outline: 'none', borderRadius: '2rem'}}>Add to Cart</button>}
-                </Card.Body>
-
-              </Card>}
-          </>
-        })}
-      </CardGroup>
-      <CardGroup className='mt-3 p-3' style={{ justifyContent: 'space-between', marginLeft: '-8.9%'}}>
-        {products.map((prod, index) => {
-          return <>
-            {index <= 15 & index > 12 &&
-              <Card>
-                <Card.Img variant="top" src={prod.image} />
-                <Card.Body>
-                  <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
-                  <Card.Text style={{justifyContent: 'space-between', fontWeight: 'bolder'}}>
-                    Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
-                  </Card.Text>
-                  {loginStatus && <button style={{color: 'white', backgroundColor: 'green', border: 'none', outline: 'none', borderRadius: '2rem'}}>Add to Cart</button>}
-                </Card.Body>
-
-              </Card>}
-          </>
-        })}
-      </CardGroup>
-      <CardGroup className='mt-3 p-5' style={{ justifyContent: 'space-between', marginLeft: '-11.5%'}}>
-        {products.map((prod, index) => {
-          return <>
-            {index <= 18 & index > 15 &&
-              <Card>
-                <Card.Img variant="top" src={prod.image} />
-                <Card.Body>
-                  <Card.Title style={{ color: 'black' }}>{prod.title}</Card.Title>
-                  <Card.Text style={{justifyContent: 'space-between', fontWeight: 'bolder'}}>
-                    Price - {prod.price} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Size - {prod.size}
-                  </Card.Text>
-                  {loginStatus && <button style={{color: 'white', backgroundColor: 'green', border: 'none', outline: 'none', borderRadius: '2rem'}}>Add to Cart</button>}
-                </Card.Body>
-
-              </Card>}
-          </>
-        })}
-      </CardGroup>
-      
-    </>
+    <Container>
+      <Grid container spacing={1}>
+        <Grid item xs={12} sx={{display: 'flex', flexWrap: 'wrap'}}>
+          {data.map((p) => (
+            <div key={p.id}>
+              <Card data-aos="fade-left" className={classes.card} sx={{ minWidth: 300 }}>
+                <CardMedia
+                  component="img"
+                  height="340"
+                  image={p.image}
+                  alt="Product"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {p.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Price - {p.price}
+                  </Typography>
+                </CardContent>
+                <h4>Size - {p.size}</h4>
+                {login && <button className={classes.addCart} onClick={()=> addItem(p)}>Add to Cart</button> }
+              </Card>
+            </div>
+          ))}
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
-export default GroupExample;
+export default Page

@@ -19,7 +19,7 @@ function Page() {
     fetch('http://localhost:3300/products', {
       method: 'GET'
     }).then(res => res.json()).then(res => {
-      setData([...res.splice(0, 9)])
+      setData([...res])
       console.log(data)
     })
   }, [])
